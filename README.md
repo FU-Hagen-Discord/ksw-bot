@@ -6,6 +6,7 @@
 
 * [Begrüßung](https://github.com/FU-Hagen-Discord/ksw-bot/blob/master/cogs/welcome.py) von neuen Servermitgliedern
   * Text in der #teeküche
+* Nachrichten anpinnen über die 📌-Reaktion (cf. [ksw-bot.py](https://github.com/FU-Hagen-Discord/ksw-bot/blob/master/ksw-bot.py))
 * [Timer](https://github.com/FU-Hagen-Discord/ksw-bot/blob/master/cogs/timer.py) für stilles Lernen oder Lerngruppentreffen
 
 ## Mitwirkung
