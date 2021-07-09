@@ -7,8 +7,6 @@ class Welcome(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.channel_id = int(os.getenv("DISCORD_WELCOME_CHANNEL"))
-        self.verifier = int(os.getenv("DISCORD_VERIFIER"))
-        self.work_on = int(os.getenv("DISCORD_WORK_ON"))
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
