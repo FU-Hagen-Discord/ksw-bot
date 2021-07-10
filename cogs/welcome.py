@@ -6,7 +6,7 @@ from discord.ext import commands
 class Welcome(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.channel_id = int(os.getenv("DISCORD_WELCOME_CHANNEL"))
+        self.channel_id = int(os.getenv("DISCORD_GREETING_CHANNEL"))
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
