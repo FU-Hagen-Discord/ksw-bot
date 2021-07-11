@@ -1,4 +1,4 @@
-# Epikur (Name noch WIP) 
+# Epikur
 *Bot für den Discord Server "Kultur- und Sozialwissenschaften FUH"*
 
 ## Funktion
