@@ -30,6 +30,7 @@ class Polls(commands.Cog):
 
         await Poll(self.bot, question, list(answers), ctx.author.id).send_poll(ctx)
 
+"""
     @help(
         category="poll",
         syntax="!poll suggest <question> <answers...>",
@@ -51,6 +52,7 @@ class Polls(commands.Cog):
             poll += f" \"{answer}\""
 
         await channel.send(f"{msg}\n{poll}")
+"""
 
     @help(
         category="poll",

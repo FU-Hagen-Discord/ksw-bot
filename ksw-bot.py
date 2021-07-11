@@ -5,7 +5,7 @@ from discord.ext import commands
 from dislash import *
 from dotenv import load_dotenv
 
-from cogs import help, timer, welcome
+from cogs import appointments, calmdown, help, links, polls, support, timer, welcome
 
 # .env file is necessary in the same directory, that contains several strings.
 load_dotenv()
@@ -17,7 +17,12 @@ PIN_EMOJI = "📌"
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix='!', help_command=None, activity=discord.Game(ACTIVITY), intents=intents)
+bot.add_cog(appointments.Appointments(bot))
+bot.add_cog(calmdown.Calmdown(bot))
 bot.add_cog(help.Help(bot))
+bot.add_cog(links.Links(bot))
+bot.add_cog(polls.Polls(bot))
+bot.add_cog(support.Support(bot))
 bot.add_cog(timer.Timer(bot))
 bot.add_cog(welcome.Welcome(bot))
 
@@ -25,7 +30,7 @@ SlashClient(bot, show_warnings=True)  # Stellt den Zugriff auf die Buttons berei
 
 
 def get_reaction(reactions):
-    """ Returns the reaction, that is equal to the specified PIN_EMOJI,
+    """ Returns the reaction that is equal to the specified PIN_EMOJI,
     or if that reaction does not exist in list of reactions, None will be returned"""
 
     for reaction in reactions:
@@ -35,14 +40,14 @@ def get_reaction(reactions):
 
 
 async def pin_message(message):
-    """ Pin the given message, if it is not already pinned """
+    """ Pin the given message if it is not already pinned """
 
     if not message.pinned:
         await message.pin()
 
 
 async def unpin_message(message):
-    """ Unpin the given message, if it is pinned, and it has no pin reaction remaining. """
+    """ Unpin the given message if it is pinned, and it has no pin reaction remaining. """
 
     if message.pinned:
         reaction = get_reaction(message.reactions)
