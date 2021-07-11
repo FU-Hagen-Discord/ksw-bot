@@ -2,12 +2,23 @@
 *Bot für den Discord Server "Kultur- und Sozialwissenschaften FUH"*
 
 ## Funktion
-### Juli 2021 ✨*Geburtsstunde*
 
-* [Begrüßung](https://github.com/FU-Hagen-Discord/ksw-bot/blob/master/cogs/welcome.py) von neuen Servermitgliedern
-  * Text in der #teeküche
-* Nachrichten anpinnen über die 📌-Reaktion (cf. [ksw-bot.py](https://github.com/FU-Hagen-Discord/ksw-bot/blob/master/ksw-bot.py))
-* [Timer](https://github.com/FU-Hagen-Discord/ksw-bot/blob/master/cogs/timer.py) für stilles Lernen oder Lerngruppentreffen
+**Rolle**: Freund und Helfer bei der Organisation des Studiums 🤖
+
+**Juli 2021**: ✨*Geburtsstunde*
+
+* Nachrichten anpinnen über die 📌-Reaktion (cf. [ksw-bot.py](https://github.com/FU-Hagen-Discord/epikur/blob/master/ksw-bot.py))
+* Sammlung Nützlicher [Links](https://github.com/FU-Hagen-Discord/epikur/tree/master/cogs/links.py) in den Channels
+* [Timer](https://github.com/FU-Hagen-Discord/epikur/blob/master/cogs/timer.py) für stilles Lernen oder Lerngruppentreffen
+* [Kalenderfunktion](https://github.com/FU-Hagen-Discord/epikur/tree/master/cogs/appointments.py)
+* [Umfragefunktion](https://github.com/FU-Hagen-Discord/epikur/tree/master/cogs/polls.py)
+
+**Support-Funktionen**
+
+ * [Begrüßung](https://github.com/FU-Hagen-Discord/epikur/blob/master/cogs/welcome.py) von neuen Servermitgliedern: Nachricht in der #teeküche
+ * [Modmail](https://github.com/FU-Hagen-Discord/epikur/blob/master/cogs/support.py): Direktnachrichten werden an das Moderationsteam weitergeleitet
+
+* [Stille Treppe](https://github.com/FU-Hagen-Discord/epikur/tree/master/cogs/calmdown.py) (Moderation) -> entzieht einem Nutzer die Schreibrechte für eine vorgegebene Zeit
 
 ## Mitwirkung
-Dir fehlt bei Epikur eine Funktion? Dann kannst du einen [Issue](https://github.com/FU-Hagen-Discord/ksw-bot/issues) erstellen, oder einen der bestehenden in Angriff nehmen 💪
+Dir fehlt bei Epikur eine Funktion? Dann kannst du einen [Issue](https://github.com/FU-Hagen-Discord/epikur/issues) erstellen, oder einen der bestehenden in Angriff nehmen 💪
