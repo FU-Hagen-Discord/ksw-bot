@@ -1,4 +1,5 @@
 import json
+import os
 
 import discord
 from discord.ext import commands
@@ -10,7 +11,7 @@ class Links(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.links = {}
-        self.links_file = "data/links.json"
+        self.links_file = os.getenv("DISCORD_LINKS_FILE")
         self.load_links()
 
     def load_links(self):

@@ -7,7 +7,7 @@
 
 **Juli 2021**: ✨*Geburtsstunde*
 
-* Nachrichten anpinnen über die 📌-Reaktion (cf. [ksw-bot.py](https://github.com/FU-Hagen-Discord/epikur/blob/master/ksw-bot.py))
+* Nachrichten anpinnen über die 📌-Reaktion (cf. [epikur.py](https://github.com/FU-Hagen-Discord/epikur/blob/master/epikur.py))
 * Sammlung Nützlicher [Links](https://github.com/FU-Hagen-Discord/epikur/tree/master/cogs/links.py) in den Channels
 * [Timer](https://github.com/FU-Hagen-Discord/epikur/blob/master/cogs/timer.py) für stilles Lernen oder Lerngruppentreffen
 * [Kalenderfunktion](https://github.com/FU-Hagen-Discord/epikur/tree/master/cogs/appointments.py)
