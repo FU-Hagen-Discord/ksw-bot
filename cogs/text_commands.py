@@ -11,6 +11,7 @@ from cogs.help import text_command_help, help, handle_error, remove_help_for, he
 
 
 @help_category("textcommands", "Text-Kommandos", "", "Alle Werkzeuge zum Anlegen und Verwalten von Textkommandos.")
+@help_category("sprueche", "Sprüche", "Manchmal braucht man einfach weise Sprüche.")
 class TextCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
