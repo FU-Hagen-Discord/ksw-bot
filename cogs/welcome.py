@@ -12,7 +12,7 @@ class Welcome(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         channel = await self.bot.fetch_channel(self.channel_id)
-        msg = f"Hallo {member.mention} und willkommen auf dem KSW-Studi-Server, schön dass du hierhergefunden hast :kitty_heaven:\n" \
+        msg = f"Hallo {member.mention} und willkommen auf dem KSW-Studi-Server, schön dass du hierhergefunden hast <a:kitty_clap:864411228130902017>\n" \
               f"Wenn du Fragen hast: zöger nicht, sie zu stellen! \n" \
               f"Die <#{os.getenv('DISCORD_OFFTOPIC_CHANNEL')}> hier ist der \"Off-topic-Channel\", also für den lockeren Austausch zwischen Kommilitoninnen :dancers:\n" \
               f"Viel Spaß beim Stöbern und Netzwerken!"
