@@ -30,7 +30,7 @@ class Polls(commands.Cog):
 
         await Poll(self.bot, question, list(answers), ctx.author.id).send_poll(ctx)
 
-        @help(
+    @help(
         category="poll",
         syntax="!poll suggest <question> <answers...>",
         brief="Schlägt eine Umfrage für den Umfrage-Kanal vor.",
