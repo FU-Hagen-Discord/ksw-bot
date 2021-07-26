@@ -97,6 +97,30 @@ class Roles(commands.Cog):
         for key in self.assignable_roles.keys():
             if role_emoji := emoji.EMOJI_ALIAS_UNICODE_ENGLISH.get(key):
                 await message.add_reaction(role_emoji)
+     
+    @help(
+        category="updater",
+        brief="Aktualisiert die Vergabe-Nachricht von Interessen-Rollen.",
+        mod=True
+    )
+    @commands.command("update-interest")
+    @commands.check(utils.is_mod)
+    async def cmd_update_interest(self, ctx):
+        # idk :)
+        channel = await self.bot.fetch_channel(self.channel_id)
+        message = await channel.fetch_message(self.color_message_id)
+        color_emojis = self.get_color_emojis()
+        # idk :)
+
+        embed = discord.Embed(title="Vergabe von Interessen-Rollen",
+                              description="Durch klicken auf die entsprechende Reaktion kannst du dir die damit assoziierte Rolle zuweisen, oder entfernen. Dies funktioniert so, dass ein Klick auf die Reaktion die aktuelle Zuordnung dieser Rolle ändert. Das bedeutet, wenn du die Rolle, die mit <:classical_building:> assoziiert ist, schon hast, aber die Reaktion noch nicht ausgewählt hast, dann wird dir bei einem Klick auf die Reaktion diese Rolle wieder weggenommen. ")
+
+        await message.edit(content="", embed=embed)
+        await message.clear_reactions()
+
+        for emoji in color_emojis.values():
+            if emoji:
+                await message.add_reaction(emoji)
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
