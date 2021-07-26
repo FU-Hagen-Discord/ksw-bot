@@ -108,8 +108,8 @@ class Roles(commands.Cog):
     async def cmd_update_interest(self, ctx):
         # idk :)
         channel = await self.bot.fetch_channel(self.channel_id)
-        message = await channel.fetch_message(self.color_message_id)
-        color_emojis = self.get_color_emojis()
+        message = await channel.fetch_message(self.interest_message_id)
+        interest_emojis = self.get_interest_emojis()
         # idk :)
 
         embed = discord.Embed(title="Vergabe von Interessen-Rollen",
