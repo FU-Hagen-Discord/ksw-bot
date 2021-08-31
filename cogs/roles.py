@@ -1,22 +1,24 @@
 import json
 import os
 
-import emoji
 import discord
+import emoji
 from discord.ext import commands
 
 import utils
 from cogs.help import help, handle_error, help_category
 
 
-@help_category("updater", "Updater", "Diese Kommandos werden zum Updaten von Nachrichten benutzt, die Boty automatisch erzeugt.")
+@help_category("updater", "Updater",
+               "Diese Kommandos werden zum Updaten von Nachrichten benutzt, die Waltraud automatisch erzeugt.")
 @help_category("info", "Informationen", "Kleine Helferlein, um schnell an Informationen zu kommen.")
 class Roles(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.roles_file = os.getenv("DISCORD_ROLES_FILE")
         self.channel_id = int(os.getenv("DISCORD_ROLE_CHANNEL"))
-        self.role_message_id = int(os.getenv("DISCORD_ROLE_MSG", "0"))
+        self.stdg_message_id = int(os.getenv("DISCORD_STDG_ROLE_MSG", "0"))
+        self.intr_message_id = int(os.getenv("DISCORD_INTR_ROLE_MSG", "0"))
         self.assignable_roles = {}
         self.load_roles()
 
@@ -32,6 +34,12 @@ class Roles(commands.Cog):
         for key, role_name in self.assignable_roles.items():
             if role_name == role.name:
                 return key
+
+    async def get_message(self, channel, role_group):
+        if role_group == "Studiengangs":
+            return None if self.stdg_message_id == 0 else await channel.fetch_message(self.stdg_message_id)
+        else:
+            return None if self.intr_message_id == 0 else await channel.fetch_message(self.intr_message_id)
 
     @help(
         category="info",
@@ -72,43 +80,55 @@ class Roles(commands.Cog):
     )
     @commands.command("update-roles")
     @commands.check(utils.is_mod)
-    async def cmd_update_degree_program(self, ctx):
+    async def cmd_update_roles(self, ctx):
         channel = await self.bot.fetch_channel(self.channel_id)
-        message = None if self.role_message_id == 0 else await channel.fetch_message(self.role_message_id)
 
-        embed = discord.Embed(title="Vergabe von Studiengangs-Rollen",
-                              description="Durch klicken auf die entsprechende Reaktion kannst du dir die damit assoziierte Rolle zuweisen, oder entfernen. Dies funktioniert so, dass ein Klick auf die Reaktion die aktuelle Zuordnung dieser Rolle ändert. Das bedeutet, wenn du die Rolle, die mit :regional_indicator_a: assoziiert ist, schon hast, aber die Reaktion noch nicht ausgewählt hast, dann wird dir bei einem Klick auf die Reaktion diese Rolle wieder weggenommen. ")
+        for role_group, roles in self.assignable_roles.items():
+            message = await self.get_message(channel, role_group)
+            embed = discord.Embed(title=f"Vergabe von {role_group}-Rollen",
+                                  description=f"Durch klicken auf die entsprechende Reaktion kannst du dir die damit assoziierte Rolle zuweisen, oder entfernen. Dies funktioniert so, dass ein Klick auf die Reaktion die aktuelle Zuordnung dieser Rolle ändert. Das bedeutet, wenn du die Rolle, die mit {list(roles.keys())[0]} assoziiert ist, schon hast, aber die Reaktion noch nicht ausgewählt hast, dann wird dir bei einem Klick auf die Reaktion diese Rolle wieder weggenommen. ")
 
-        value = f""
-        for role_emoji, name in self.assignable_roles.items():
-            if emoji:
-                value += f"{role_emoji} : {name}\n"
+            value = f""
+            for role_emoji, name in roles.items():
+                if unicode_emoji := emoji.EMOJI_ALIAS_UNICODE_ENGLISH.get(role_emoji):
+                    value += f"{unicode_emoji} : {name}\n"
+                else:
+                    value += f"<{role_emoji}> : {name}\n"
 
-        embed.add_field(name="Rollen",
-                        value=value,
-                        inline=False)
+            embed.add_field(name="Rollen",
+                            value=value,
+                            inline=False)
 
-        if message:
-            await message.edit(content="", embed=embed)
-            await message.clear_reactions()
-        else:
-            message = await channel.send(embed=embed)
+            if message:
+                await message.edit(content="", embed=embed)
+                await message.clear_reactions()
+            else:
+                message = await channel.send(embed=embed)
 
-        for key in self.assignable_roles.keys():
-            if role_emoji := emoji.EMOJI_ALIAS_UNICODE_ENGLISH.get(key):
-                await message.add_reaction(role_emoji)
+            for key in roles.keys():
+                if role_emoji := emoji.EMOJI_ALIAS_UNICODE_ENGLISH.get(key):
+                    await message.add_reaction(role_emoji)
+                else:
+                    await message.add_reaction(f"<{key}>")
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        if payload.user_id == self.bot.user.id or payload.message_id != self.role_message_id:
+        if payload.user_id == self.bot.user.id or (
+                payload.message_id != self.stdg_message_id and payload.message_id != self.intr_message_id):
             return
 
         role_emoji = emoji.UNICODE_EMOJI_ALIAS_ENGLISH.get(payload.emoji.name)
 
-        if role_emoji not in self.assignable_roles:
+        if not role_emoji:
+            role_emoji = str(payload.emoji)[1:-1]
+
+        if role_emoji in self.assignable_roles.get("Studiengangs"):
+            role_name = self.assignable_roles.get("Studiengangs").get(role_emoji)
+        elif role_emoji in self.assignable_roles.get("Interessen"):
+            role_name = self.assignable_roles.get("Interessen").get(role_emoji)
+        else:
             return
 
-        role_name = self.assignable_roles.get(role_emoji)
         guild = await self.bot.fetch_guild(payload.guild_id)
         member = await guild.fetch_member(payload.user_id)
         channel = await self.bot.fetch_channel(payload.channel_id)
