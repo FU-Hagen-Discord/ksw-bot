@@ -1,15 +1,16 @@
 import json
 import os
 
-import emoji
 import discord
+import emoji
 from discord.ext import commands
 
 import utils
 from cogs.help import help, handle_error, help_category
 
 
-@help_category("updater", "Updater", "Diese Kommandos werden zum Updaten von Nachrichten benutzt, die Boty automatisch erzeugt.")
+@help_category("updater", "Updater",
+               "Diese Kommandos werden zum Updaten von Nachrichten benutzt, die Waltraud automatisch erzeugt.")
 @help_category("info", "Informationen", "Kleine Helferlein, um schnell an Informationen zu kommen.")
 class Roles(commands.Cog):
     def __init__(self, bot):
@@ -81,30 +82,30 @@ class Roles(commands.Cog):
     @commands.check(utils.is_mod)
     async def cmd_update_roles(self, ctx):
         channel = await self.bot.fetch_channel(self.channel_id)
-        
+
         for role_group, roles in self.assignable_roles.items():
             message = await self.get_message(channel, role_group)
             embed = discord.Embed(title=f"Vergabe von {role_group}-Rollen",
-                                  description=f"Durch klicken auf die entsprechende Reaktion kannst du dir die damit assoziierte Rolle zuweisen, oder entfernen. \nDies funktioniert so, dass ein Klick auf die Reaktion die aktuelle Zuordnung dieser Rolle ändert. Das bedeutet, wenn du die Rolle, die mit {list(roles.keys())[2]} assoziiert ist, schon hast, aber die Reaktion noch nicht ausgewählt hast, dann wird dir bei einem Klick auf die Reaktion diese Rolle wieder weggenommen. ")
+                                  description=f"Durch klicken auf die entsprechende Reaktion kannst du dir die damit assoziierte Rolle zuweisen, oder entfernen. Dies funktioniert so, dass ein Klick auf die Reaktion die aktuelle Zuordnung dieser Rolle ändert. Das bedeutet, wenn du die Rolle, die mit {list(roles.keys())[0]} assoziiert ist, schon hast, aber die Reaktion noch nicht ausgewählt hast, dann wird dir bei einem Klick auf die Reaktion diese Rolle wieder weggenommen. ")
 
-        value = f""
-        for role_emoji, name in roles.items():
-            if unicode_emoji:= emoji.EMOJI_ALIAS_UNICODE_ENGLISH.get(role_emoji):
+            value = f""
+            for role_emoji, name in roles.items():
+                if unicode_emoji := emoji.EMOJI_ALIAS_UNICODE_ENGLISH.get(role_emoji):
                     value += f"{unicode_emoji} : {name}\n"
                 else:
                     value += f"<{role_emoji}> : {name}\n"
 
-        embed.add_field(name="Rollen",
-                        value=value,
-                        inline=False)
+            embed.add_field(name="Rollen",
+                            value=value,
+                            inline=False)
 
-        if message:
-            await message.edit(content="", embed=embed)
-            await message.clear_reactions()
-        else:
-            message = await channel.send(embed=embed)
+            if message:
+                await message.edit(content="", embed=embed)
+                await message.clear_reactions()
+            else:
+                message = await channel.send(embed=embed)
 
-        for key in roles.keys():
+            for key in roles.keys():
                 if role_emoji := emoji.EMOJI_ALIAS_UNICODE_ENGLISH.get(key):
                     await message.add_reaction(role_emoji)
                 else:
