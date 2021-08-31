@@ -12,7 +12,8 @@ from cogs.help import help, handle_error, help_category
 class Polls(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
+        self.poll_sugg_channel = int(os.getenv("DISCORD_POLL_SUGG_CHANNEL"))
+        
     @help(
         category="poll",
         syntax="!poll <question> <answers...>",
@@ -29,6 +30,26 @@ class Polls(commands.Cog):
 
         await Poll(self.bot, question, list(answers), ctx.author.id).send_poll(ctx)
 
+    @help(
+        category="poll",
+        syntax="!poll suggest <question> <answers...>",
+        brief="Schlägt eine Umfrage für den Umfrage-Kanal vor.",
+        parameters={
+            "question": "Die Frage die gestellt werden soll (in Anführungszeichen).",
+            "answers...": "Durch Leerzeichen getrennte Antwortmöglichkeiten (die einzelnen Antworten in Anführungszeichen einschließen)."
+        },
+        example="!poll suggest \"Wie ist das Wetter?\" \"echt gut\" \"weniger gut\" \"Boar nee, nicht schon wieder Regen\""
+    )
+    @cmd_poll.command(name="suggest")
+    async def cmd_add_poll(self, ctx, question, *answers):
+        channel = await self.bot.fetch_channel(self.poll_sugg_channel)
+        msg = f"<@!{ctx.author.id}> hat folgende Umfrage vorgeschlagen:\nFrage:{question}\n\nAntwortoptionen:\n"
+        poll = f"!poll \"{question}\""
+        for answer in answers:
+            msg += f"{answer}\n"
+            poll += f" \"{answer}\""
+        await channel.send(f"{msg}\n{poll}")    
+    
     @help(
         category="poll",
         brief="Bearbeitet eine bereits vorhandene Umfrage.",
