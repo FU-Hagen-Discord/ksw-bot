@@ -1,6 +1,7 @@
 import os
 
 from discord.ext import commands
+
 import utils
 
 
@@ -16,8 +17,8 @@ class Welcome(commands.Cog):
         await channel.send(msg)
         await utils.send_dm(member,
                             f"Willkommen auf dem Discordserver von und für Studis der Fakultät für Kultur- und Sozialwissenschaften der FernUni!\n\n" \
-                            f":placard: Beim Text-Channel <#{os.getenv('DISCORD_ROLE_CHANNEL')}> kannst du dir Studiengangs- und/ oder Interessenrollen vergeben lassen." \
-                            f"__Gut zu wissen__: Du kannst dann die Modul-Textchannels sehen, wenn du die dazu passende Rolle hast.  \n\n" \
+                            f":placard: Beim Text-Channel <#{os.getenv('DISCORD_ROLE_CHANNEL')}> kannst du dir Studiengangs- und/ oder Interessenrollen vergeben lassen. " \
+                            f"__Gut zu wissen:__ Du kannst dann die Modul-Textchannels sehen, wenn du die dazu passende Rolle hast.  \n\n" \
                             f"Bei Bedarf wurden in <#{os.getenv('DISCORD_DISCORDTIPPS_CHANNEL')}> ein paar hilfreiche Infos zum Umgang mit Discord gesammelt, schau gerne rein! \n" \
                             f":books: Im Channel <#{os.getenv('DISCORD_UNITALK_CHANNEL')}> kannst du dich mit Kommilitoninnen über Themen rund um das Studium unterhalten, " \
                             f"in der <#{os.getenv('DISCORD_OFFTOPIC_CHANNEL')}> (der sogenannte Offtopic-Channel) können alle anderen Themen besprochen werden :speech_balloon: \n\n" \
