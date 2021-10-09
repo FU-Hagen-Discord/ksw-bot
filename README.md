@@ -15,7 +15,9 @@
 
 **Support-Funktionen**
 
- * [Begrüßung](https://github.com/FU-Hagen-Discord/epikur/blob/master/cogs/welcome.py) von neuen Servermitgliedern: Nachricht in der #teeküche
+ * [Begrüßung](https://github.com/FU-Hagen-Discord/epikur/blob/master/cogs/welcome.py) von neuen Servermitgliedern beim Beitritt: 
+   * Nachricht in dem Willkommenschannel und 
+   * Direktnachricht.
  * [Modmail](https://github.com/FU-Hagen-Discord/epikur/blob/master/cogs/support.py): Direktnachrichten werden an das Moderationsteam weitergeleitet
 
 * [Stille Treppe](https://github.com/FU-Hagen-Discord/epikur/tree/master/cogs/calmdown.py) (Moderation) -> entzieht einem Nutzer die Schreibrechte für eine vorgegebene Zeit
