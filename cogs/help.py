@@ -162,7 +162,7 @@ class Help(commands.Cog):
                     await utils.send_dm(ctx.author, "", embed=embed)
                     helptext = ""
                     msgcount = msgcount + 1
-                    title = f"Boty hilft dir! (Fortsetzung {msgcount})"
+                    title = f"Epikur hilft dir! (Fortsetzung {msgcount})"
                 helptext += text
                 text = ""
 
