@@ -40,7 +40,7 @@ class Roles(commands.Cog):
             return None if self.stdg_message_id == 0 else await channel.fetch_message(self.stdg_message_id)
         else:
             return None if self.intr_message_id == 0 else await channel.fetch_message(self.intr_message_id)
-
+    ###### Stats Anpassen ##########################################################################################
     @help(
         category="info",
         brief="Gibt die Mitgliederstatistik aus."
