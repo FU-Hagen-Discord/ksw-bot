@@ -31,9 +31,10 @@ class Roles(commands.Cog):
     def get_key(self, role):
         """ Get the key for a given role. This role is used for adding or removing a role from a user. """
 
-        for key, role_name in self.assignable_roles.items():
-            if role_name == role.name:
-                return key
+        for group, roles in self.assignable_roles.items():
+            for key, role_name in roles.items():
+                if role_name == role.name:
+                    return key
 
     async def get_message(self, channel, role_group):
         if role_group == "Studiengangs":
