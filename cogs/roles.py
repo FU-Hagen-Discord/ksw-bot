@@ -1,9 +1,9 @@
 import json
 import os
 
-import discord
+import disnake
 import emoji
-from discord.ext import commands
+from disnake.ext import commands
 
 import utils
 from cogs.help import help, handle_error, help_category
@@ -53,7 +53,7 @@ class Roles(commands.Cog):
         guild = ctx.guild
         members = await guild.fetch_members().flatten()
         answer = f''
-        embed = discord.Embed(title="Statistiken",
+        embed = disnake.Embed(title="Statistiken",
                               description=f'Wir haben aktuell {len(members)} Mitglieder auf diesem Server, verteilt auf folgende Rollen:')
 
         for role in guild.roles:
@@ -86,7 +86,7 @@ class Roles(commands.Cog):
 
         for role_group, roles in self.assignable_roles.items():
             message = await self.get_message(channel, role_group)
-            embed = discord.Embed(title=f"Vergabe von {role_group}-Rollen",
+            embed = disnake.Embed(title=f"Vergabe von {role_group}-Rollen",
                                   description=f"Durch klicken auf die entsprechende Reaktion kannst du dir die damit assoziierte Rolle zuweisen, oder entfernen. Dies funktioniert so, dass ein Klick auf die Reaktion die aktuelle Zuordnung dieser Rolle ändert. Das bedeutet, wenn du die Rolle, die mit {list(roles.keys())[0]} assoziiert ist, schon hast, aber die Reaktion noch nicht ausgewählt hast, dann wird dir bei einem Klick auf die Reaktion diese Rolle wieder weggenommen. ")
 
             value = f""
