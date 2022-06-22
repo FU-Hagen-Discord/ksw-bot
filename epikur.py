@@ -31,16 +31,16 @@ class Epikur(commands.Bot):
         print("Client started!")
 
     def add_cogs(self):        
-        self.add_cog(appointments.Appointments(bot))
-        self.add_cog(calmdown.Calmdown(bot))
-        self.add_cog(help.Help(bot))
-        self.add_cog(links.Links(bot))
-        self.add_cog(polls.Polls(bot))
-        self.add_cog(support.Support(bot))
-        self.add_cog(timer.Timer(bot))
-        self.add_cog(welcome.Welcome(bot))
-        self.add_cog(roles.Roles(bot))
-        self.add_cog(text_commands.TextCommands(bot))
+        self.add_cog(appointments.Appointments(self))
+        self.add_cog(calmdown.Calmdown(self))
+        self.add_cog(help.Help(self))
+        self.add_cog(links.Links(self))
+        self.add_cog(polls.Polls(self))
+        self.add_cog(support.Support(self))
+        self.add_cog(timer.Timer(self))
+        self.add_cog(welcome.Welcome(self))
+        self.add_cog(roles.Roles(self))
+        self.add_cog(text_commands.TextCommands(self))
 
 
 bot = Epikur()        
